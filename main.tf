@@ -1,8 +1,12 @@
 terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.16"
+  required_version = ">= 0.12"
+provider = aws {}
+
+data "aws_caller_identity" "current"
+
+locals{
+  account_id  = data.aws_caller_identity.current.account_id
+}
 
 resource "aws_s3_bucket" "terrforn_state" {
   bucket = "my-tf-test-luci"
